@@ -1,1 +1,1843 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>ห้องสมุดดิจิทัล | Digital Library</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #6758e8;
+    --primary-light: #eeeaff;
+    --blue: #4f9cf9;
+    --dark: #172033;
+    --text: #263043;
+    --muted: #8b94a7;
+    --bg: #f6f7fb;
+    --white: #ffffff;
+    --border: #e9ebf2;
+    --wood: #d6a76b;
+    --wood-dark: #b77d3e;
+}
+
+body {
+    font-family: "Noto Sans Thai", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+    height: 86px;
+    background: linear-gradient(100deg, #6256e8, #48a5f4);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    padding: 0 34px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+
+    z-index: 100;
+}
+
+.logo {
+    width: 205px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border: 2px solid white;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+}
+
+.logo-text strong {
+    display: block;
+    font-size: 17px;
+}
+
+.logo-text span {
+    display: block;
+    font-size: 11px;
+    opacity: .8;
+}
+
+/* Search */
+
+.search-box {
+    flex: 1;
+    max-width: 520px;
+    height: 48px;
+
+    background: white;
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+
+    color: #9ba3b2;
+}
+
+.search-box span {
+    font-size: 20px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+/* User */
+
+.user {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffe0bd, #f5a26b);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+.user-name {
+    font-size: 13px;
+}
+
+.user-name strong {
+    display: block;
+}
+
+.user-name span {
+    opacity: .75;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    position: fixed;
+    top: 86px;
+    left: 0;
+    bottom: 0;
+
+    width: 205px;
+    background: white;
+
+    border-right: 1px solid var(--border);
+
+    padding: 28px 16px;
+
+    z-index: 50;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 8px;
+}
+
+.menu button {
+    width: 100%;
+    border: none;
+    background: transparent;
+
+    padding: 13px 14px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    font-family: inherit;
+    color: #7f899c;
+    cursor: pointer;
+
+    text-align: left;
+}
+
+.menu button:hover,
+.menu button.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.menu-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 19px;
+}
+
+/* Storage */
+
+.storage {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 28px;
+
+    padding: 18px;
+    border-radius: 18px;
+
+    background: linear-gradient(145deg, #fafaff, #f0f2ff);
+}
+
+.storage-illustration {
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 55px;
+}
+
+.storage h4 {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.storage p {
+    color: #7f899c;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.progress {
+    width: 100%;
+    height: 7px;
+    border-radius: 20px;
+    background: #e2e5ed;
+    overflow: hidden;
+}
+
+.progress div {
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(90deg, #4d9cf6, #6758e8);
+}
+
+.storage button {
+    margin-top: 14px;
+
+    width: 100%;
+    border: none;
+    padding: 10px;
+
+    border-radius: 10px;
+    background: var(--primary);
+
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    margin-left: 205px;
+    padding: 120px 30px 40px;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1200px;
+    margin: auto;
+
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.hero-image {
+    font-size: 60px;
+}
+
+/* Controls */
+
+.controls {
+    max-width: 1200px;
+    margin: auto;
+
+    background: white;
+    padding: 16px;
+
+    border-radius: 18px;
+    border: 1px solid var(--border);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.select {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    padding: 10px 14px;
+
+    font-family: inherit;
+    color: #687285;
+    background: white;
+}
+
+.view-switch {
+    display: flex;
+    gap: 4px;
+
+    background: #f1f2f7;
+    padding: 4px;
+
+    border-radius: 10px;
+}
+
+.view-switch button {
+    border: none;
+    background: transparent;
+
+    width: 38px;
+    height: 35px;
+
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.view-switch button.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 2px 8px #00000012;
+}
+
+.upload {
+    margin-left: auto;
+
+    border: none;
+    border-radius: 11px;
+
+    padding: 11px 20px;
+
+    color: white;
+    background: linear-gradient(100deg, #6758e8, #4f9cf9);
+
+    font-family: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* =========================
+   BOOKSHELF
+========================= */
+
+.bookshelf {
+    max-width: 1200px;
+    margin: auto;
+
+    background: linear-gradient(
+        180deg,
+        #f2e4d0,
+        #d9b27c
+    );
+
+    padding: 28px 24px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        inset 0 0 30px #9a6b3525,
+        0 15px 40px #5c402012;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px 25px;
+}
+
+/* Book */
+
+.book {
+    cursor: pointer;
+    transition: .25s;
+}
+
+.book:hover {
+    transform: translateY(-8px);
+}
+
+.book-cover {
+    height: 230px;
+
+    border-radius: 7px 7px 3px 3px;
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow:
+        7px 8px 15px #68451e45,
+        inset -5px 0 10px #00000012;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 20px;
+
+    color: white;
+}
+
+.book-cover::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 40%,
+            #ffffff18 50%,
+            transparent 60%
+        );
+}
+
+.book-cover h3 {
+    font-size: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.book-cover small {
+    display: block;
+    margin-top: 8px;
+    opacity: .8;
+}
+
+.book-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+
+    background: white;
+    color: #566071;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    padding: 3px 7px;
+
+    z-index: 5;
+}
+
+.book-info {
+    background: white;
+
+    margin-top: 0;
+
+    padding: 11px 13px;
+
+    border-radius: 0 0 9px 9px;
+
+    box-shadow: 0 7px 15px #68451e25;
+}
+
+.book-info strong {
+    display: block;
+    font-size: 13px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-info span {
+    font-size: 11px;
+    color: #9aa2b1;
+}
+
+/* Book colors */
+
+.math {
+    background: linear-gradient(145deg, #4b9be8, #3171bd);
+}
+
+.science {
+    background: linear-gradient(145deg, #88c99e, #368d67);
+}
+
+.physics {
+    background: linear-gradient(145deg, #263b82, #20295e);
+}
+
+.chemistry {
+    background: linear-gradient(145deg, #6ca8ed, #3977c6);
+}
+
+.history {
+    background: linear-gradient(145deg, #d88d7d, #a94d4b);
+}
+
+.english {
+    background: linear-gradient(145deg, #d6c1a3, #8b6a50);
+}
+
+.thai {
+    background: linear-gradient(145deg, #9b774e, #63442f);
+}
+
+.computer {
+    background: linear-gradient(145deg, #604a98, #352b72);
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: 25px;
+}
+
+.pagination button {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: white;
+    color: #777f91;
+
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* =========================
+   PDF VIEWER
+========================= */
+
+#viewer {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: #151c2b;
+
+    z-index: 999;
+}
+
+.viewer-toolbar {
+    height: 70px;
+
+    background: #20283a;
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 20px;
+}
+
+.viewer-title {
+    font-weight: 700;
+    margin-right: 15px;
+
+    white-space: nowrap;
+}
+
+.tool {
+    border: none;
+
+    background: #303a4f;
+    color: white;
+
+    padding: 9px 13px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.tool:hover,
+.tool.active {
+    background: #6758e8;
+}
+
+.color-picker {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.close-viewer {
+    margin-left: auto;
+
+    background: #ed5a5a;
+}
+
+/* Viewer */
+
+.viewer-body {
+    height: calc(100vh - 70px);
+
+    display: flex;
+    justify-content: center;
+
+    overflow: auto;
+
+    padding: 35px;
+}
+
+.document {
+    width: 760px;
+    min-height: 980px;
+
+    background: white;
+
+    position: relative;
+
+    box-shadow: 0 0 40px #00000060;
+
+    padding: 60px 65px;
+
+    color: #30343b;
+}
+
+.document h1 {
+    color: #168a65;
+    font-size: 27px;
+
+    margin-bottom: 20px;
+}
+
+.document h2 {
+    color: #248a69;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.document p {
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.highlight {
+    background: #fff19b;
+    border-radius: 4px;
+    padding: 2px 5px;
+}
+
+.important {
+    border: 2px solid #8bd1ba;
+    border-radius: 12px;
+
+    padding: 17px;
+
+    margin: 25px 0;
+
+    background: #f8fffc;
+}
+
+.cell {
+    width: 360px;
+    height: 250px;
+
+    margin: 25px auto;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #8e6bd7 0 15%,
+            #55a7c8 16% 35%,
+            #6dc8a0 36% 55%,
+            #42a3c8 56% 75%,
+            #78c8d9 76%
+        );
+
+    border: 12px solid #2792ad;
+
+    position: relative;
+
+    box-shadow:
+        inset 0 0 30px #176a7a,
+        0 8px 20px #0002;
+}
+
+.cell::before,
+.cell::after {
+    content: "";
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: #f2a35b;
+}
+
+.cell::before {
+    width: 35px;
+    height: 35px;
+
+    top: 50px;
+    left: 70px;
+}
+
+.cell::after {
+    width: 25px;
+    height: 25px;
+
+    right: 70px;
+    bottom: 55px;
+}
+
+/* Canvas */
+
+#canvas {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: auto;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 75px;
+    }
+
+    .menu button span:not(.menu-icon),
+    .logo-text,
+    .storage {
+        display: none;
+    }
+
+    main {
+        margin-left: 75px;
+    }
+
+    .logo {
+        width: auto;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+
+    .topbar {
+        padding: 0 15px;
+        gap: 10px;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .book-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .book-cover {
+        height: 190px;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .upload {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+        <div class="logo-icon">📖</div>
+
+        <div class="logo-text">
+            <strong>ห้องสมุดดิจิทัล</strong>
+            <span>เรียนรู้ได้ทุกที่ ทุกเวลา</span>
+        </div>
+    </div>
+
+    <div class="search-box">
+        <span>⌕</span>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="ค้นหาหนังสือ, หมวดหมู่, ผู้แต่ง..."
+            oninput="searchBooks()"
+        >
+    </div>
+
+    <div class="user">
+
+        <div class="avatar">
+            👩🏻
+        </div>
+
+        <div class="user-name">
+            <strong>ปพิชญา วงค์วิเศษ</strong>
+            <span>ครูผู้สอน</span>
+        </div>
+
+        <span>⌄</span>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+    <ul class="menu">
+
+        <li>
+            <button class="active">
+                <span class="menu-icon">▣</span>
+                <span>ชั้นหนังสือ</span>
+            </button>
+        </li>
+
+        <li>
+            <button>
+                <span class="menu-icon">▦</span>
+                <span>หมวดหมู่</span>
+            </button>
+        </li>
+
+        <li>
+            <button onclick="uploadPDF()">
+                <span class="menu-icon">↥</span>
+                <span>อัปโหลดหนังสือ</span>
+            </button>
+        </li>
+
+        <li>
+            <button>
+                <span class="menu-icon">▤</span>
+                <span>หนังสือที่ฉันเปิด</span>
+            </button>
+        </li>
+
+        <li>
+            <button>
+                <span class="menu-icon">♡</span>
+                <span>รายการโปรด</span>
+            </button>
+        </li>
+
+        <li>
+            <button>
+                <span class="menu-icon">♜</span>
+                <span>ถังขยะ</span>
+            </button>
+        </li>
+
+    </ul>
+
+
+    <div class="storage">
+
+        <div class="storage-illustration">
+            📚
+        </div>
+
+        <h4>พื้นที่เก็บข้อมูล</h4>
+
+        <p>
+            2.45 GB จาก 10 GB
+        </p>
+
+        <div class="progress">
+            <div></div>
+        </div>
+
+        <button>
+            อัปเกรดพื้นที่
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+    <section class="hero">
+
+        <div>
+            <h1>ยินดีต้อนรับกลับมา!</h1>
+
+            <p>
+                เลือกหนังสือเล่มโปรดของคุณเพื่อเริ่มต้นการเรียนรู้
+            </p>
+        </div>
+
+        <div class="hero-image">
+            🌱 📚
+        </div>
+
+    </section>
+
+
+    <!-- Controls -->
+
+    <section class="controls">
+
+        <select class="select" id="categoryFilter"
+                onchange="filterBooks()">
+
+            <option value="all">
+                หมวดหมู่ทั้งหมด
+            </option>
+
+            <option value="science">
+                วิทยาศาสตร์
+            </option>
+
+            <option value="math">
+                คณิตศาสตร์
+            </option>
+
+            <option value="english">
+                ภาษาอังกฤษ
+            </option>
+
+            <option value="thai">
+                ภาษาไทย
+            </option>
+
+        </select>
+
+
+        <select class="select">
+
+            <option>
+                เรียงตาม: ล่าสุด
+            </option>
+
+            <option>
+                เรียงตาม: ชื่อ
+            </option>
+
+            <option>
+                เรียงตาม: ขนาดไฟล์
+            </option>
+
+        </select>
+
+
+        <div class="view-switch">
+
+            <button class="active">
+                ▦
+            </button>
+
+            <button>
+                ☷
+            </button>
+
+        </div>
+
+
+        <input
+            type="file"
+            id="pdfUpload"
+            accept="application/pdf"
+            hidden
+            onchange="handlePDF(this)"
+        >
+
+        <button class="upload" onclick="uploadPDF()">
+            ☁ อัปโหลดหนังสือ
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         BOOKSHELF
+    ========================= -->
+
+    <section class="bookshelf">
+
+        <div class="book-grid" id="bookGrid">
+
+
+            <!-- 1 -->
+
+            <div
+                class="book"
+                data-category="science"
+                data-title="ชีววิทยา ม.ปลาย"
+                onclick="openViewer('ชีววิทยา ม.ปลาย')"
+            >
+
+                <div class="book-cover science">
+
+                    <div>
+                        <h3>ชีววิทยา</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>ชีววิทยา ม.ปลาย</strong>
+                    <span>2.4 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 2 -->
+
+            <div
+                class="book"
+                data-category="physics"
+                data-title="ฟิสิกส์ ม.ปลาย"
+                onclick="openViewer('ฟิสิกส์ ม.ปลาย')"
+            >
+
+                <div class="book-cover physics">
+
+                    <div>
+                        <h3>ฟิสิกส์</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>ฟิสิกส์ ม.ปลาย</strong>
+                    <span>5.1 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 3 -->
+
+            <div
+                class="book"
+                data-category="chemistry"
+                data-title="เคมี ม.ปลาย"
+                onclick="openViewer('เคมี ม.ปลาย')"
+            >
+
+                <div class="book-cover chemistry">
+
+                    <div>
+                        <h3>เคมี</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>เคมี ม.ปลาย</strong>
+                    <span>3.2 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 4 -->
+
+            <div
+                class="book"
+                data-category="history"
+                data-title="ประวัติศาสตร์ไทย"
+                onclick="openViewer('ประวัติศาสตร์ไทย')"
+            >
+
+                <div class="book-cover history">
+
+                    <div>
+                        <h3>ประวัติศาสตร์</h3>
+                        <small>ไทย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>ประวัติศาสตร์ไทย</strong>
+                    <span>4.7 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 5 -->
+
+            <div
+                class="book"
+                data-category="math"
+                data-title="คณิตศาสตร์ ม.ปลาย"
+                onclick="openViewer('คณิตศาสตร์ ม.ปลาย')"
+            >
+
+                <div class="book-cover math">
+
+                    <div>
+                        <h3>คณิตศาสตร์</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>คณิตศาสตร์ ม.ปลาย</strong>
+                    <span>4.0 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 6 -->
+
+            <div
+                class="book"
+                data-category="english"
+                data-title="ภาษาอังกฤษ ม.ปลาย"
+                onclick="openViewer('ภาษาอังกฤษ ม.ปลาย')"
+            >
+
+                <div class="book-cover english">
+
+                    <div>
+                        <h3>ภาษาอังกฤษ</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>ภาษาอังกฤษ ม.ปลาย</strong>
+                    <span>3.6 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 7 -->
+
+            <div
+                class="book"
+                data-category="thai"
+                data-title="ภาษาไทย ม.ปลาย"
+                onclick="openViewer('ภาษาไทย ม.ปลาย')"
+            >
+
+                <div class="book-cover thai">
+
+                    <div>
+                        <h3>ภาษาไทย</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>ภาษาไทย ม.ปลาย</strong>
+                    <span>2.8 MB</span>
+                </div>
+
+            </div>
+
+
+            <!-- 8 -->
+
+            <div
+                class="book"
+                data-category="computer"
+                data-title="วิทยาการคำนวณ ม.ปลาย"
+                onclick="openViewer('วิทยาการคำนวณ ม.ปลาย')"
+            >
+
+                <div class="book-cover computer">
+
+                    <div>
+                        <h3>วิทยาการคำนวณ</h3>
+                        <small>ม.ปลาย</small>
+                    </div>
+
+                    <span class="book-tag">
+                        PDF
+                    </span>
+
+                </div>
+
+                <div class="book-info">
+                    <strong>วิทยาการคำนวณ ม.ปลาย</strong>
+                    <span>6.3 MB</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Pagination -->
+
+    <div class="pagination">
+
+        <button>‹</button>
+
+        <button class="active">1</button>
+
+        <button>2</button>
+
+        <button>3</button>
+
+        <button>...</button>
+
+        <button>8</button>
+
+        <button>›</button>
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     PDF VIEWER
+========================= -->
+
+<section id="viewer">
+
+    <div class="viewer-toolbar">
+
+        <button class="tool" onclick="closeViewer()">
+            ←
+        </button>
+
+        <div class="viewer-title" id="viewerTitle">
+            ชีววิทยา ม.ปลาย
+        </div>
+
+        <span>
+            12 / 128
+        </span>
+
+        <button class="tool">
+            −
+        </button>
+
+        <button class="tool">
+            100%
+        </button>
+
+        <button class="tool">
+            +
+        </button>
+
+        <button
+            class="tool active"
+            id="penButton"
+            onclick="setTool('pen')"
+        >
+            ✎ ปากกา
+        </button>
+
+        <button
+            class="tool"
+            onclick="setTool('eraser')"
+        >
+            ⌫ ลบ
+        </button>
+
+        <button
+            class="tool"
+            onclick="setTool('highlight')"
+        >
+            ▰ ไฮไลต์
+        </button>
+
+        <input
+            type="color"
+            id="penColor"
+            class="color-picker"
+            value="#ff3333"
+        >
+
+        <select
+            id="penSize"
+            class="tool"
+        >
+            <option value="2">2px</option>
+            <option value="3" selected>3px</option>
+            <option value="5">5px</option>
+            <option value="8">8px</option>
+        </select>
+
+        <button
+            class="tool"
+            onclick="clearCanvas()"
+        >
+            🗑
+        </button>
+
+        <button
+            class="tool close-viewer"
+            onclick="closeViewer()"
+        >
+            ✕ ปิด
+        </button>
+
+    </div>
+
+
+    <div class="viewer-body">
+
+        <div class="document">
+
+            <h1>
+                1.1 เซลล์สิ่งมีชีวิต
+            </h1>
+
+            <p>
+
+                <span class="highlight">
+                    เซลล์ (Cell)
+                </span>
+
+                เป็นหน่วยพื้นฐานของสิ่งมีชีวิต
+                สิ่งมีชีวิตทุกชนิดประกอบด้วยเซลล์ตั้งแต่
+                1 เซลล์ขึ้นไป
+
+            </p>
+
+
+            <p style="margin-top:15px">
+
+                เซลล์มีส่วนประกอบสำคัญ ได้แก่
+                เยื่อหุ้มเซลล์
+                ไซโทพลาซึม
+                และนิวเคลียส
+
+            </p>
+
+
+            <div class="cell"></div>
+
+
+            <div class="important">
+
+                <strong>
+                    ข้อสังเกต
+                </strong>
+
+                <p>
+                    เซลล์ของพืชและสัตว์มีความแตกต่างกัน
+                    บางประการ เช่น ผนังเซลล์
+                    คลอโรพลาสต์ และแวคิวโอล
+                </p>
+
+            </div>
+
+
+            <h2>
+                ส่วนประกอบของเซลล์พืช
+            </h2>
+
+            <p>
+                • ผนังเซลล์ — ให้ความแข็งแรง
+            </p>
+
+            <p>
+                • คลอโรพลาสต์ — ใช้ในการสังเคราะห์แสง
+            </p>
+
+            <p>
+                • แวคิวโอล — เก็บน้ำและสารต่าง ๆ
+            </p>
+
+
+            <div style="
+                margin-top:40px;
+                font-size:25px;
+                color:#ed3d3d;
+                font-weight:bold;
+                text-align:center;
+            ">
+                ↳ สำคัญมาก! ★
+            </div>
+
+
+            <!-- Canvas -->
+
+            <canvas id="canvas"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchBooks() {
+
+    const keyword =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const books =
+        document.querySelectorAll(".book");
+
+    books.forEach(book => {
+
+        const title =
+            book.dataset.title.toLowerCase();
+
+        book.style.display =
+            title.includes(keyword)
+            ? ""
+            : "none";
+
+    });
+}
+
+
+/* =========================
+   FILTER
+========================= */
+
+function filterBooks() {
+
+    const category =
+        document
+        .getElementById("categoryFilter")
+        .value;
+
+    const books =
+        document.querySelectorAll(".book");
+
+    books.forEach(book => {
+
+        if (
+            category === "all" ||
+            book.dataset.category === category
+        ) {
+            book.style.display = "";
+        } else {
+            book.style.display = "none";
+        }
+
+    });
+}
+
+
+/* =========================
+   PDF UPLOAD
+========================= */
+
+function uploadPDF() {
+
+    document
+        .getElementById("pdfUpload")
+        ?.click();
+
+    document
+        .getElementById("pdfUpload");
+}
+
+
+/* =========================
+   HANDLE PDF
+========================= */
+
+function handlePDF(input) {
+
+    if (!input.files.length) {
+        return;
+    }
+
+    const file = input.files[0];
+
+    alert(
+        "เลือกไฟล์: " + file.name +
+        "\n\nระบบสามารถนำไฟล์ PDF ไปแสดงใน Viewer ได้"
+    );
+}
+
+
+/* =========================
+   VIEWER
+========================= */
+
+function openViewer(title) {
+
+    document
+        .getElementById("viewerTitle")
+        .textContent = title;
+
+    document
+        .getElementById("viewer")
+        .style.display = "block";
+
+    resizeCanvas();
+
+}
+
+
+function closeViewer() {
+
+    document
+        .getElementById("viewer")
+        .style.display = "none";
+
+}
+
+
+/* =========================
+   CANVAS DRAWING
+========================= */
+
+const canvas =
+    document.getElementById("canvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+let drawing = false;
+let tool = "pen";
+
+
+function resizeCanvas() {
+
+    const rect =
+        canvas.parentElement.getBoundingClientRect();
+
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function getPosition(e) {
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
+
+}
+
+
+canvas.addEventListener(
+    "pointerdown",
+    e => {
+
+        drawing = true;
+
+        const pos =
+            getPosition(e);
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            pos.x,
+            pos.y
+        );
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointermove",
+    e => {
+
+        if (!drawing) return;
+
+        const pos =
+            getPosition(e);
+
+        const color =
+            document
+            .getElementById("penColor")
+            .value;
+
+        const size =
+            Number(
+                document
+                .getElementById("penSize")
+                .value
+            );
+
+
+        if (tool === "eraser") {
+
+            ctx.globalCompositeOperation =
+                "destination-out";
+
+            ctx.lineWidth =
+                size * 5;
+
+        } else {
+
+            ctx.globalCompositeOperation =
+                "source-over";
+
+            ctx.strokeStyle =
+                color;
+
+            ctx.lineWidth =
+                tool === "highlight"
+                ? size * 4
+                : size;
+
+            ctx.globalAlpha =
+                tool === "highlight"
+                ? 0.3
+                : 1;
+
+        }
+
+
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        ctx.lineTo(
+            pos.x,
+            pos.y
+        );
+
+        ctx.stroke();
+
+    }
+);
+
+
+canvas.addEventListener(
+    "pointerup",
+    stopDrawing
+);
+
+canvas.addEventListener(
+    "pointerleave",
+    stopDrawing
+);
+
+
+function stopDrawing() {
+
+    drawing = false;
+
+    ctx.closePath();
+
+    ctx.globalAlpha = 1;
+
+}
+
+
+/* =========================
+   TOOLS
+========================= */
+
+function setTool(newTool) {
+
+    tool = newTool;
+
+    document
+        .getElementById("penButton")
+        .classList.toggle(
+            "active",
+            newTool === "pen"
+        );
+
+}
+
+
+function clearCanvas() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+}
+
+
+/* =========================
+   ESC TO CLOSE
+========================= */
+
+document.addEventListener(
+    "keydown",
+    e => {
+
+        if (
+            e.key === "Escape"
+        ) {
+            closeViewer();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
